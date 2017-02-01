@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails jmm_rails_capstone: development" uuid="b4b8de98-4d98-4b88-8b31-4b971fe7c3b1">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails jmm_rails_capstone: test" uuid="0935eff8-8b2a-4808-a156-f466cc27163e">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails jmm_rails_capstone: production" uuid="7a97e4cf-bf7c-466f-abdb-d0358f31f4c8">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
