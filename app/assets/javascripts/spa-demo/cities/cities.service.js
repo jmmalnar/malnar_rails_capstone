@@ -12,6 +12,5 @@
             { update: { method: "PUT" }
             }
         );
-    )
     }
 })();
