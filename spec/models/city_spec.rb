@@ -23,9 +23,7 @@ describe City, type: :model do
     let(:city) { City.create(:name => "test") }
 
     it { expect(city).to be_persisted }
-
     it { expect(city.name).to eq("test") }
-
     it { expect(City.find(city.id)).to_not be_nil }
 
   end
@@ -34,11 +32,35 @@ describe City, type: :model do
     subject { City.create(:name => "test") }
 
     it { is_expected.to be_persisted }
-
     it { expect(subject.name).to eq("test") }
-
     it { expect(City.find(subject.id)).to_not be_nil }
 
   end
+
+  # Eagerly instantiate :before_count
+  context "created City (lazy)" do
+    let!(:before_count) { City.count }
+    let(:city) { City.create(:name=>"test") }
+
+    it { expect(city).to be_persisted }
+    it { expect(city.name).to eq("test") }
+    it { expect(City.find(city.id)).to_not be_nil }
+    it { city; expect(City.count).to eq(before_count+1) }
+
+  end
+
+  # Here is how to skip, or make a line pending
+  # x will skip
+  context "created City (pending stuff)" do
+    let!(:before_count) { City.count }
+    let(:city) { City.create(:name=>"test") }
+
+    xit { expect(city).to be_persisted }
+    pending it { expect(city.name).to eq("test") }
+    it { expect(City.find(city.id)).to_not be_nil }
+    it { city; expect(City.count).to eq(before_count+1) }
+
+  end
+
 
 end
