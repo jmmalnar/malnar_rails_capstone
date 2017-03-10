@@ -1,19 +1,8 @@
 require 'rails_helper'
 
 describe City, type: :model do
-  before(:all) do
-    DatabaseCleaner[:active_record].strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
-  after(:all) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-  before(:each) do
-    DatabaseCleaner.start
-  end
-  after(:each) do
-    DatabaseCleaner.clean
-  end
+  include_context 'db_cleanup'
+  include_context 'db_scope'
 
   # context "created City" do
   #   let(:city) { City.create(:name => "test") }
@@ -55,7 +44,7 @@ describe City, type: :model do
   # until they are called
   context "created City (eager)" do
     let!(:before_count) { City.count }
-    let(:city) { City.create(:name=>"test") }
+    let(:city) { City.create(:name => "test") }
 
     it { expect(city).to be_persisted }
     it { expect(city.name).to eq("test") }
