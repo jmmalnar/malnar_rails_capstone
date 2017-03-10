@@ -3,7 +3,7 @@ require 'rails_helper'
 describe City, type: :model do
   include_context 'db_cleanup'
   before(:all) do
-    @city = City.create(:name => 'test')
+    @city = FactoryGirl.create(:city)
   end
   let(:city) { City.find(@city.id) }
 
