@@ -38,6 +38,8 @@ describe City, type: :model do
   end
 
   # Eagerly instantiate :before_count
+  # let blocks don't get instantiated
+  # until they are called
   context "created City (lazy)" do
     let!(:before_count) { City.count }
     let(:city) { City.create(:name=>"test") }
