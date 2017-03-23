@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe City, type: :model do
-  include_context 'db_cleanup'
+  include_context 'db_cleanup', :transaction
   before(:all) do
-    @city = FactoryGirl.create(:city)
+    @city = FactoryGirl.create(:city, :name=>'test')
   end
   let(:city) { City.find(@city.id) }
 
