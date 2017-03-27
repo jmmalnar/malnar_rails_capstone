@@ -47,7 +47,24 @@ RSpec.describe "City API", type: :request do
   end
 
   context "create a new City" do
-    it "can create with provided name"
+    let(:city_state) {FactoryGirl.attributes_for(:city)}
+
+    it "can create with provided name" do
+      jpost cities_path, city_state
+      #pp parsed_body
+      expect(response).to have_http_status(:created)
+      expect(response.content_type).to eq("application/json")
+
+      # Check the payload of the response
+      payload=parsed_body
+      expect(payload).to have_key("id")
+      expect(payload).to have_key("name")
+      expect(payload["name"]).to eq(city_state[:name])
+      id=payload["id"]
+
+      # Verify we can locate the created instance in DB
+      expect(City.find(id).name).to eq(city_state[:name])
+    end
   end
 
   context "existing City" do
