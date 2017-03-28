@@ -68,8 +68,32 @@ RSpec.describe "City API", type: :request do
   end
 
   context "existing City" do
-    it "can update name"
-    it "can be deleted"
+    let(:city) {FactoryGirl.create(:city)}
+    let(:new_name) {"testing"}
+
+    it "can update name" do
+      # Verify name is not yet the new name
+      expect(city.name).to_not eq(new_name)
+
+      # Change to the new name
+      jput city_path(city.id), {:name=>new_name}
+      expect(response).to have_http_status(:no_content)
+
+      # Verify we can locate the created instance in DB
+      expect(City.find(city.id).name).to eq(new_name)
+    end
+
+    it "can be deleted" do
+      head city_path(city.id)
+      expect(response).to have_http_status(:ok)
+
+      delete city_path(city.id)
+      expect(response).to have_http_status(:no_content)
+
+      head city_path(city.id)
+      expect(response).to have_http_status(:not_found)
+
+    end
   end
 
 end
