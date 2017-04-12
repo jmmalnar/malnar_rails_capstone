@@ -18,6 +18,7 @@
 
 require 'mongoid-rspec'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require_relative 'support/database_cleaners.rb'
 require_relative 'support/api_helper'
 
@@ -32,6 +33,20 @@ Capybara.register_driver :selenium do |app|
     end
     Capybara::Selenium::Driver.new(app, :browser => :firefox)
   end
+end
+
+# Set the default driver
+Capybara.configure do |config|
+  config.default_driver = :rack_test
+  #used when :js=>true
+  config.javascript_driver = :poltergeist
+end
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app,
+  phantomjs_logger: StringIO.new,
+  # logger: STDERR
+  )
 end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
