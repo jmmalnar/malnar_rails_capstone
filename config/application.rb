@@ -39,10 +39,11 @@ module JmmRailsCapstone
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins '*'
+        origins /https:\/\/\w+\.github\.io./
 
-        resource '/api/*',
+        resource '*',
                  :headers =>:any,
+                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
                  :methods=> [:get, :post, :put, :delete, :options]
       end
     end
