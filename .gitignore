@@ -13,3 +13,5 @@
 /tmp
 /config/local_env.yml
 /coverage
+
+.idea/
